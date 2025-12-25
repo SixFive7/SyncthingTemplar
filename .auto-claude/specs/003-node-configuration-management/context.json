@@ -1,0 +1,66 @@
+{
+  "task_description": "# Node Configuration Management\n\nAllow users to add, edit, and remove Syncthing node connections. Store configuration securely including node names, API endpoints, and API keys. Support import/export of configurations.\n\n## Rationale\nUsers need to configure which Syncthing instances to monitor. This is the prerequisite for multi-node monitoring and must handle credentials securely. Unlike custom scripts (pain-5-1), this provides a graphical configuration interface.\n\n## User Stories\n- As a system administrator, I want to easily add my Syncthing servers to the monitoring app so that I don't need to write code or scripts\n- As a power user, I want my node configurations saved securely so that I don't have to reconfigure after each restart\n\n## Acceptance Criteria\n- [ ] User can add a new Syncthing node with name, URL, and API key\n- [ ] User can edit existing node configurations\n- [ ] User can remove nodes from monitoring\n- [ ] API keys are stored securely (encrypted)\n- [ ] Connection test validates configuration before saving\n- [ ] Configurations persist across application restarts\n",
+  "scoped_services": ["SyncthingTemplar"],
+  "files_to_modify": [
+    "Program.cs",
+    "Components/Pages/Servers/Index.razor",
+    "Components/_Imports.razor"
+  ],
+  "files_to_create": [
+    "Models/NodeConfiguration.cs",
+    "Services/NodeConfigurationService.cs",
+    "Services/SyncthingConnectionService.cs",
+    "Components/Dialogs/AddEditNodeDialog.razor",
+    "Components/Dialogs/DeleteNodeDialog.razor"
+  ],
+  "files_to_reference": [
+    "Program.cs",
+    "Components/Layout/MainLayout.razor",
+    "Components/Pages/Home.razor",
+    "Components/_Imports.razor"
+  ],
+  "patterns": {
+    "service_registration": "Services registered in Program.cs using builder.Services.AddXxx() pattern",
+    "mudblazor_providers": "MainLayout.razor already has all 4 required MudBlazor providers: MudThemeProvider, MudPopoverProvider, MudDialogProvider, MudSnackbarProvider",
+    "component_structure": "Pages use @page directive, inject services via @inject, use MudBlazor components for UI",
+    "dialog_pattern": "MudDialog components with DialogContent and DialogActions sections, use IDialogService.ShowAsync<T>() to open",
+    "form_validation": "MudForm with @bind-IsValid, validation functions return null for valid, error string for invalid",
+    "async_operations": "All I/O operations use async/await pattern"
+  },
+  "existing_implementations": {
+    "description": "Fresh Blazor Server project with MudBlazor UI framework. No existing services or models - this will be the first service implementation.",
+    "relevant_files": [
+      "Components/Layout/MainLayout.razor - MudBlazor provider setup and theming",
+      "Components/Pages/Home.razor - MudBlazor card/button patterns",
+      "Components/Pages/Servers/Index.razor - Target page for node management (currently placeholder)",
+      "Program.cs - Service registration patterns"
+    ],
+    "infrastructure_ready": [
+      "MudBlazor v8 package installed and configured",
+      "All 4 MudBlazor providers active in MainLayout",
+      "Navigation structure in place with /servers route"
+    ],
+    "infrastructure_missing": [
+      "Data Protection API not registered (need to add)",
+      "IHttpClientFactory not registered (need to add)",
+      "No Models or Services exist yet (clean slate)",
+      "./keys directory for Data Protection keys (will be created on first run)"
+    ]
+  },
+  "security_requirements": {
+    "encryption": "ASP.NET Core Data Protection API with purpose string 'SyncthingTemplar.ApiKeyProtection'",
+    "key_storage": "./keys directory for Data Protection provider keys",
+    "credential_handling": "API keys encrypted at rest, decrypted only when needed for API calls",
+    "validation": "Connection test required before saving node configuration"
+  },
+  "api_integration": {
+    "syncthing_api": {
+      "auth_method": "X-API-Key header",
+      "test_endpoint": "/rest/system/ping",
+      "expected_response": "{\"ping\":\"pong\"}",
+      "timeout": "10 seconds",
+      "client_pattern": "IHttpClientFactory with custom headers"
+    }
+  },
+  "created_at": "2025-12-26T00:24:01.801822"
+}
