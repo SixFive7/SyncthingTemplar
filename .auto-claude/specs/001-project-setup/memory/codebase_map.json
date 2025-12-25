@@ -1,0 +1,60 @@
+{
+  "discovered_files": {
+    "src/SyncthingTemplar/SyncthingTemplar.csproj": {
+      "description": "Main Blazor project file targeting .NET 9.0 with MudBlazor 8.* package. Uses Web SDK for Blazor Server.",
+      "category": "project-structure",
+      "discovered_at": "2025-12-25T18:59:28.485848+00:00"
+    },
+    "src/SyncthingTemplar/Program.cs": {
+      "description": "Blazor Server entry point with MudBlazor. Uses AddRazorComponents().AddInteractiveServerComponents() for interactive SSR, AddMudServices() for MudBlazor, and MapRazorComponents<App>().AddInteractiveServerRenderMode() for routing.",
+      "category": "configuration",
+      "discovered_at": "2025-12-25T19:04:19.959073+00:00"
+    },
+    "src/SyncthingTemplar/appsettings.json": {
+      "description": "Standard ASP.NET Core configuration with Logging (Info default, Warning for ASP.NET Core) and AllowedHosts. Will need appsettings.Development.json for development-specific settings in future tasks.",
+      "category": "configuration",
+      "discovered_at": "2025-12-25T19:05:49.221031+00:00"
+    },
+    "src/SyncthingTemplar/Components/App.razor": {
+      "description": "Root Blazor component defining HTML document structure. Includes MudBlazor CSS (fonts.googleapis.com, MudBlazor.min.css), HeadOutlet for dynamic head content, Routes component in body, and JavaScript files (blazor.web.js, MudBlazor.min.js).",
+      "category": "component",
+      "discovered_at": "2025-12-25T19:07:52.265824+00:00"
+    },
+    "src/SyncthingTemplar/Components/Routes.razor": {
+      "description": "Blazor Router configuration. Uses typeof(Program).Assembly for route discovery, Layout.MainLayout as default layout, RouteView for found routes, FocusOnNavigate for accessibility, and LayoutView with error message for NotFound.",
+      "category": "component",
+      "discovered_at": "2025-12-25T19:07:52.336980+00:00"
+    },
+    "src/SyncthingTemplar/Components/_Imports.razor": {
+      "description": "Global using statements for Razor components. Includes standard Blazor namespaces (System.Net.Http, Forms, Routing, Web, JSInterop), MudBlazor for UI components, and application namespaces (SyncthingTemplar, SyncthingTemplar.Components). All .razor files in Components folder inherit these imports.",
+      "category": "Blazor Configuration",
+      "discovered_at": "2025-12-25T19:09:36.573091+00:00"
+    },
+    "src/SyncthingTemplar/Components/Layout/MainLayout.razor": {
+      "description": "Main application layout with MudBlazor. Contains all four required providers (MudThemeProvider, MudPopoverProvider, MudDialogProvider, MudSnackbarProvider). Supports dark/light theme toggle with system preference detection on first render. Uses MudLayout with MudAppBar, MudDrawer (with NavMenu), MudMainContent structure. Default dark mode is true, drawer is open by default.",
+      "category": "Layout",
+      "discovered_at": "2025-12-25T19:11:48.785866+00:00"
+    },
+    "src/SyncthingTemplar/Components/Layout/NavMenu.razor": {
+      "description": "NavMenu component for main navigation. Uses MudNavMenu with MudNavLink elements. Home link uses NavLinkMatch.All for exact matching, other pages use NavLinkMatch.Prefix for prefix matching. Each link has a Material icon (Home, Dns for servers, Monitor for monitoring, Settings).",
+      "category": "component",
+      "discovered_at": "2025-12-25T19:13:29.689125+00:00"
+    },
+    "src/SyncthingTemplar/Components/Pages/Home.razor": {
+      "description": "Home/Dashboard page at root route (/). Uses MudBlazor components: MudGrid with MudItem for responsive layout, MudCard with header/content/actions for feature cards, MudPaper for sections, MudList for bullet lists. Follows pattern of descriptive comments at top and consistent MudBlazor styling.",
+      "category": "patterns",
+      "discovered_at": "2025-12-25T19:15:13.567641+00:00"
+    },
+    "src/SyncthingTemplar/Components/Pages/Settings/Index.razor": {
+      "description": "Settings page at /settings route. Uses CascadingParameter to receive IsDarkMode (bool) and ToggleTheme (EventCallback) from MainLayout. Theme toggle uses MudSwitch with ValueChanged binding to OnThemeToggled. Contains placeholder sections for notifications and monitoring defaults. About section shows application info.",
+      "category": "pages",
+      "discovered_at": "2025-12-25T19:22:17.117760+00:00"
+    },
+    "tests/SyncthingTemplar.Tests/SyncthingTemplar.Tests.csproj": {
+      "description": "Test project using xUnit 2.*, Microsoft.NET.Test.Sdk 17.*, coverlet.collector 6.* for code coverage. References main SyncthingTemplar project. Uses net9.0 target framework matching main project.",
+      "category": "project_structure",
+      "discovered_at": "2025-12-25T19:23:54.701944+00:00"
+    }
+  },
+  "last_updated": "2025-12-25T19:23:54.701944+00:00"
+}

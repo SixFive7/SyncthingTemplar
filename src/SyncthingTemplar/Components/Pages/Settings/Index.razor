@@ -1,0 +1,156 @@
+@* Settings/Index.razor - Application settings page for SyncthingTemplar *@
+@* Allows users to configure theme, notifications, and other application preferences *@
+
+@page "/settings"
+
+<PageTitle>Settings - SyncthingTemplar</PageTitle>
+
+@* Page header *@
+<MudText Typo="Typo.h3" GutterBottom="true">Settings</MudText>
+<MudText Typo="Typo.body1" Class="mb-8">
+    Configure application preferences, theme, and notification settings.
+</MudText>
+
+@* Appearance settings *@
+<MudPaper Class="pa-6 mb-6" Elevation="0" Outlined="true">
+    <MudText Typo="Typo.h6" GutterBottom="true">
+        <MudIcon Icon="@Icons.Material.Filled.Palette" Class="mr-2" />
+        Appearance
+    </MudText>
+
+    <MudStack Spacing="4" Class="mt-4">
+        @* Theme toggle *@
+        <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+            <MudStack Spacing="0">
+                <MudText Typo="Typo.body1">Dark Mode</MudText>
+                <MudText Typo="Typo.body2" Class="mud-text-secondary">
+                    Use dark color scheme for reduced eye strain
+                </MudText>
+            </MudStack>
+            <MudSwitch T="bool"
+                       Value="IsDarkMode"
+                       ValueChanged="OnThemeToggled"
+                       Color="Color.Primary"
+                       UnCheckedColor="Color.Default" />
+        </MudStack>
+    </MudStack>
+</MudPaper>
+
+@* Notification settings placeholder *@
+<MudPaper Class="pa-6 mb-6" Elevation="0" Outlined="true">
+    <MudText Typo="Typo.h6" GutterBottom="true">
+        <MudIcon Icon="@Icons.Material.Filled.Notifications" Class="mr-2" />
+        Notifications
+    </MudText>
+
+    <MudStack Spacing="4" Class="mt-4">
+        @* Email notifications *@
+        <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+            <MudStack Spacing="0">
+                <MudText Typo="Typo.body1">Email Notifications</MudText>
+                <MudText Typo="Typo.body2" Class="mud-text-secondary">
+                    Receive email alerts when monitoring detects issues
+                </MudText>
+            </MudStack>
+            <MudSwitch T="bool" Disabled="true" Color="Color.Primary" />
+        </MudStack>
+
+        @* Push notifications *@
+        <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+            <MudStack Spacing="0">
+                <MudText Typo="Typo.body1">Push Notifications</MudText>
+                <MudText Typo="Typo.body2" Class="mud-text-secondary">
+                    Receive browser push notifications for alerts
+                </MudText>
+            </MudStack>
+            <MudSwitch T="bool" Disabled="true" Color="Color.Primary" />
+        </MudStack>
+    </MudStack>
+
+    <MudAlert Severity="Severity.Info" Class="mt-4" Dense="true">
+        Notification settings will be available after configuring servers.
+    </MudAlert>
+</MudPaper>
+
+@* Monitoring defaults placeholder *@
+<MudPaper Class="pa-6 mb-6" Elevation="0" Outlined="true">
+    <MudText Typo="Typo.h6" GutterBottom="true">
+        <MudIcon Icon="@Icons.Material.Filled.Tune" Class="mr-2" />
+        Monitoring Defaults
+    </MudText>
+
+    <MudSimpleTable Dense="true" Hover="true" Class="mt-4">
+        <thead>
+            <tr>
+                <th>Setting</th>
+                <th>Default Value</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><MudText Typo="Typo.body2"><strong>Health Check Interval</strong></MudText></td>
+                <td><MudText Typo="Typo.body2">30 seconds</MudText></td>
+                <td><MudText Typo="Typo.body2">How often to verify server connectivity</MudText></td>
+            </tr>
+            <tr>
+                <td><MudText Typo="Typo.body2"><strong>Offline Threshold</strong></MudText></td>
+                <td><MudText Typo="Typo.body2">5 minutes</MudText></td>
+                <td><MudText Typo="Typo.body2">Time before marking a device as offline</MudText></td>
+            </tr>
+            <tr>
+                <td><MudText Typo="Typo.body2"><strong>Alert Cooldown</strong></MudText></td>
+                <td><MudText Typo="Typo.body2">15 minutes</MudText></td>
+                <td><MudText Typo="Typo.body2">Minimum time between repeated alerts</MudText></td>
+            </tr>
+        </tbody>
+    </MudSimpleTable>
+
+    <MudAlert Severity="Severity.Info" Class="mt-4" Dense="true">
+        Default values can be overridden per-server in the server configuration.
+    </MudAlert>
+</MudPaper>
+
+@* About section *@
+<MudPaper Class="pa-6" Elevation="0" Outlined="true">
+    <MudText Typo="Typo.h6" GutterBottom="true">
+        <MudIcon Icon="@Icons.Material.Filled.Info" Class="mr-2" />
+        About
+    </MudText>
+
+    <MudStack Spacing="2" Class="mt-4">
+        <MudText Typo="Typo.body1"><strong>SyncthingTemplar</strong></MudText>
+        <MudText Typo="Typo.body2" Class="mud-text-secondary">
+            A monitoring application for multiple Syncthing instances.
+            Built with .NET 10 Blazor and MudBlazor.
+        </MudText>
+        <MudText Typo="Typo.body2" Class="mud-text-secondary">
+            Designed for real-time push-based updates - no polling.
+        </MudText>
+    </MudStack>
+</MudPaper>
+
+@code {
+    /// <summary>
+    /// Current dark mode state, cascaded from MainLayout.
+    /// </summary>
+    [CascadingParameter(Name = "IsDarkMode")]
+    public bool IsDarkMode { get; set; }
+
+    /// <summary>
+    /// Callback to toggle the theme, cascaded from MainLayout.
+    /// </summary>
+    [CascadingParameter(Name = "ToggleTheme")]
+    public EventCallback ToggleTheme { get; set; }
+
+    /// <summary>
+    /// Handles theme toggle switch changes.
+    /// </summary>
+    private async Task OnThemeToggled(bool newValue)
+    {
+        if (ToggleTheme.HasDelegate)
+        {
+            await ToggleTheme.InvokeAsync();
+        }
+    }
+}
