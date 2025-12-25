@@ -1,0 +1,44 @@
+{
+  "task_description": "# Dark Mode Theme\n\nAlternative dark color theme for the application. Follows Windows system theme preference or can be manually toggled.\n\n## Rationale\nDark mode is a common user preference, especially for applications that run continuously. Improves usability in low-light environments and reduces eye strain.\n\n## User Stories\n- As a power user, I want dark mode so that the app is comfortable to use in low-light conditions\n\n## Acceptance Criteria\n- [ ] Dark theme alternative is available\n- [ ] Theme can be toggled in settings\n- [ ] Option to follow Windows system theme\n- [ ] All UI elements are properly styled in dark mode\n",
+  "scoped_services": ["syncthing-templar"],
+  "files_to_modify": {
+    "syncthing-templar": [
+      "src/SyncthingTemplar/SyncthingTemplar.csproj",
+      "src/SyncthingTemplar/Program.cs",
+      "src/SyncthingTemplar/Components/Layout/MainLayout.razor",
+      "src/SyncthingTemplar/Components/Pages/Settings/Index.razor",
+      "src/SyncthingTemplar/Components/App.razor"
+    ]
+  },
+  "files_to_create": {
+    "syncthing-templar": [
+      "src/SyncthingTemplar/wwwroot/js/theme-detector.js"
+    ]
+  },
+  "files_to_reference": [
+    "src/SyncthingTemplar/Components/Layout/MainLayout.razor",
+    "src/SyncthingTemplar/Components/Pages/Settings/Index.razor",
+    "src/SyncthingTemplar/Program.cs"
+  ],
+  "patterns": {
+    "theme_provider": "MudBlazor MudThemeProvider with @bind-IsDarkMode binding already in MainLayout.razor",
+    "cascading_values": "CascadingValue pattern used to distribute theme state (_isDarkMode) to child components",
+    "event_callbacks": "EventCallback pattern for child components to invoke parent methods (ToggleTheme)",
+    "service_registration": "builder.Services pattern in Program.cs for dependency injection",
+    "mudblazor_switches": "MudSwitch component with ValueChanged callback for async handling"
+  },
+  "existing_implementations": {
+    "description": "Basic dark/light mode toggle already exists using MudBlazor. Theme state managed in MainLayout with CascadingValue distribution. Settings page has theme toggle switch.",
+    "relevant_files": [
+      "src/SyncthingTemplar/Components/Layout/MainLayout.razor",
+      "src/SyncthingTemplar/Components/Pages/Settings/Index.razor"
+    ],
+    "current_limitations": [
+      "No persistence - theme resets on page reload",
+      "No reactive system detection - only reads OS theme once on first render",
+      "No auto/manual mode selection"
+    ]
+  },
+  "created_at": "2025-12-26T00:24:55.211967",
+  "updated_at": "2025-12-26T08:30:00Z"
+}
