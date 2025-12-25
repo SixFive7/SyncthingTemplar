@@ -1,0 +1,65 @@
+@* Servers/Index.razor - Server management page for SyncthingTemplar *@
+@* Allows users to view, add, edit, and remove Syncthing server connections *@
+
+@page "/servers"
+
+<PageTitle>Servers - SyncthingTemplar</PageTitle>
+
+@* Page header with action button *@
+<MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="mb-6">
+    <MudText Typo="Typo.h3">Server Management</MudText>
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" Disabled="true">
+        Add Server
+    </MudButton>
+</MudStack>
+
+<MudText Typo="Typo.body1" Class="mb-8">
+    Configure and manage connections to your Syncthing instances.
+</MudText>
+
+@* Placeholder content - will be replaced with server list *@
+<MudPaper Class="pa-8" Elevation="0" Outlined="true">
+    <MudStack AlignItems="AlignItems.Center" Spacing="4">
+        <MudIcon Icon="@Icons.Material.Filled.Dns" Size="Size.Large" Color="Color.Primary" />
+        <MudText Typo="Typo.h5">No Servers Configured</MudText>
+        <MudText Typo="Typo.body1" Align="Align.Center" Class="mud-text-secondary">
+            Add your first Syncthing server to start monitoring.
+            <br />
+            You'll need the server's API URL and authentication credentials.
+        </MudText>
+        <MudButton Variant="Variant.Outlined" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" Disabled="true">
+            Add Your First Server
+        </MudButton>
+    </MudStack>
+</MudPaper>
+
+@* Information about what can be configured *@
+<MudPaper Class="pa-6 mt-8" Elevation="0" Outlined="true">
+    <MudText Typo="Typo.h6" GutterBottom="true">Server Configuration Options</MudText>
+    <MudSimpleTable Dense="true" Hover="true">
+        <thead>
+            <tr>
+                <th>Setting</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><MudText Typo="Typo.body2"><strong>API URL</strong></MudText></td>
+                <td><MudText Typo="Typo.body2">The Syncthing REST API endpoint (typically https://host:8384)</MudText></td>
+            </tr>
+            <tr>
+                <td><MudText Typo="Typo.body2"><strong>API Key</strong></MudText></td>
+                <td><MudText Typo="Typo.body2">Authentication key from Syncthing's settings</MudText></td>
+            </tr>
+            <tr>
+                <td><MudText Typo="Typo.body2"><strong>Display Name</strong></MudText></td>
+                <td><MudText Typo="Typo.body2">A friendly name to identify this server</MudText></td>
+            </tr>
+            <tr>
+                <td><MudText Typo="Typo.body2"><strong>Monitoring Rules</strong></MudText></td>
+                <td><MudText Typo="Typo.body2">Configure what aspects to monitor and alert thresholds</MudText></td>
+            </tr>
+        </tbody>
+    </MudSimpleTable>
+</MudPaper>
