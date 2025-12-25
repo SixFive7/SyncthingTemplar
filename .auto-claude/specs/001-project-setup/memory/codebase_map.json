@@ -39,7 +39,22 @@
       "description": "NavMenu component for main navigation. Uses MudNavMenu with MudNavLink elements. Home link uses NavLinkMatch.All for exact matching, other pages use NavLinkMatch.Prefix for prefix matching. Each link has a Material icon (Home, Dns for servers, Monitor for monitoring, Settings).",
       "category": "component",
       "discovered_at": "2025-12-25T19:13:29.689125+00:00"
+    },
+    "src/SyncthingTemplar/Components/Pages/Home.razor": {
+      "description": "Home/Dashboard page at root route (/). Uses MudBlazor components: MudGrid with MudItem for responsive layout, MudCard with header/content/actions for feature cards, MudPaper for sections, MudList for bullet lists. Follows pattern of descriptive comments at top and consistent MudBlazor styling.",
+      "category": "patterns",
+      "discovered_at": "2025-12-25T19:15:13.567641+00:00"
+    },
+    "src/SyncthingTemplar/Components/Pages/Settings/Index.razor": {
+      "description": "Settings page at /settings route. Uses CascadingParameter to receive IsDarkMode (bool) and ToggleTheme (EventCallback) from MainLayout. Theme toggle uses MudSwitch with ValueChanged binding to OnThemeToggled. Contains placeholder sections for notifications and monitoring defaults. About section shows application info.",
+      "category": "pages",
+      "discovered_at": "2025-12-25T19:22:17.117760+00:00"
+    },
+    "tests/SyncthingTemplar.Tests/SyncthingTemplar.Tests.csproj": {
+      "description": "Test project using xUnit 2.*, Microsoft.NET.Test.Sdk 17.*, coverlet.collector 6.* for code coverage. References main SyncthingTemplar project. Uses net9.0 target framework matching main project.",
+      "category": "project_structure",
+      "discovered_at": "2025-12-25T19:23:54.701944+00:00"
     }
   },
-  "last_updated": "2025-12-25T19:13:29.689125+00:00"
+  "last_updated": "2025-12-25T19:23:54.701944+00:00"
 }
