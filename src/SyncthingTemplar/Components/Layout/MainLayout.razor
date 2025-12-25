@@ -1,0 +1,67 @@
+@* Main layout component for SyncthingTemplar *@
+@* Provides the application shell with MudBlazor providers and dark/light theme support *@
+
+@inherits LayoutComponentBase
+
+@* MudBlazor providers - all four are required for full functionality *@
+<MudThemeProvider @ref="_themeProvider" @bind-IsDarkMode="_isDarkMode" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    @* Top application bar *@
+    <MudAppBar Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="ToggleDrawer" />
+        <MudText Typo="Typo.h5" Class="ml-3">SyncthingTemplar</MudText>
+        <MudSpacer />
+        <MudIconButton Icon="@(_isDarkMode ? Icons.Material.Filled.LightMode : Icons.Material.Filled.DarkMode)"
+                       Color="Color.Inherit"
+                       OnClick="ToggleTheme"
+                       Title="@(_isDarkMode ? "Switch to light mode" : "Switch to dark mode")" />
+    </MudAppBar>
+
+    @* Navigation drawer - responsive with overlay on mobile *@
+    <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+        <NavMenu />
+    </MudDrawer>
+
+    @* Main content area *@
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="py-8">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    private MudThemeProvider _themeProvider = null!;
+    private bool _isDarkMode = true;
+    private bool _drawerOpen = true;
+
+    /// <summary>
+    /// Toggles the navigation drawer open/closed state.
+    /// </summary>
+    private void ToggleDrawer()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    /// <summary>
+    /// Toggles between dark and light theme.
+    /// </summary>
+    private void ToggleTheme()
+    {
+        _isDarkMode = !_isDarkMode;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Detect system preference for dark/light mode
+            _isDarkMode = await _themeProvider.GetSystemPreference();
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+}
