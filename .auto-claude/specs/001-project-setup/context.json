@@ -1,0 +1,36 @@
+{
+  "task_description": "Create the foundational project structure for SyncthingTemplar - a multi-instance Syncthing monitoring application. Establish .NET 9 Blazor Server project with MudBlazor UI library, navigation structure, and placeholder pages.",
+  "scoped_services": ["web"],
+  "files_to_create": {
+    "web": [
+      "SyncthingTemplar.sln",
+      "src/SyncthingTemplar/SyncthingTemplar.csproj",
+      "src/SyncthingTemplar/Program.cs",
+      "src/SyncthingTemplar/appsettings.json",
+      "src/SyncthingTemplar/Components/App.razor",
+      "src/SyncthingTemplar/Components/Routes.razor",
+      "src/SyncthingTemplar/Components/_Imports.razor",
+      "src/SyncthingTemplar/Components/Layout/MainLayout.razor",
+      "src/SyncthingTemplar/Components/Layout/NavMenu.razor",
+      "src/SyncthingTemplar/Components/Pages/Home.razor",
+      "src/SyncthingTemplar/Components/Pages/Servers/Index.razor",
+      "src/SyncthingTemplar/Components/Pages/Monitoring/Index.razor",
+      "src/SyncthingTemplar/Components/Pages/Settings/Index.razor",
+      "tests/SyncthingTemplar.Tests/SyncthingTemplar.Tests.csproj"
+    ]
+  },
+  "files_to_modify": {},
+  "files_to_reference": [],
+  "patterns": {
+    "mudblazor_providers": "MainLayout.razor MUST include all four providers: MudThemeProvider, MudPopoverProvider, MudDialogProvider, MudSnackbarProvider",
+    "blazor_server_config": "Program.cs uses AddRazorComponents().AddInteractiveServerComponents() and MapRazorComponents<App>().AddInteractiveServerRenderMode()",
+    "render_mode": "Use @rendermode InteractiveServer on interactive components",
+    "simplicity_rule": "Prefer explicit over implicit, avoid deep abstractions, single responsibility methods, self-documenting names",
+    "no_polling": "Never use Timer, setInterval, or polling patterns - push-based architecture only"
+  },
+  "existing_implementations": {
+    "description": "Greenfield project - no existing code to reference",
+    "relevant_files": []
+  },
+  "created_at": "2025-12-25T19:30:09.236969"
+}

@@ -1,0 +1,25 @@
+{
+  "active": true,
+  "spec": "001-project-setup",
+  "state": "building",
+  "subtasks": {
+    "completed": 1,
+    "total": 16,
+    "in_progress": 1,
+    "failed": 0
+  },
+  "phase": {
+    "current": "Project Scaffolding",
+    "id": null,
+    "total": 2
+  },
+  "workers": {
+    "active": 0,
+    "max": 1
+  },
+  "session": {
+    "number": 2,
+    "started_at": "2025-12-25T19:57:40.007503"
+  },
+  "last_update": "2025-12-25T20:01:06.797515"
+}

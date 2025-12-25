@@ -1,0 +1,383 @@
+{
+  "integrations_researched": [
+    {
+      "name": "MudBlazor",
+      "type": "library",
+      "verified_package": {
+        "name": "MudBlazor",
+        "install_command": "dotnet add package MudBlazor",
+        "version": "latest (requires .NET 9.0 SDK or later for development)",
+        "verified": true
+      },
+      "api_patterns": {
+        "imports": [
+          "using MudBlazor;",
+          "using MudBlazor.Services;"
+        ],
+        "initialization": "builder.Services.AddMudServices();",
+        "key_functions": [
+          "AddMudServices() - Register all MudBlazor services",
+          "AddMudServices(config => {...}) - Configure with options",
+          "<MudThemeProvider/> - Theme management",
+          "<MudPopoverProvider/> - Popover management",
+          "<MudDialogProvider/> - Dialog management",
+          "<MudSnackbarProvider/> - Snackbar/toast notifications"
+        ],
+        "verified_against": "Context7 MCP: /mudblazor/mudblazor, /websites/mudblazor"
+      },
+      "configuration": {
+        "env_vars": [],
+        "config_files": [
+          "Program.cs - Add AddMudServices()",
+          "_Imports.razor - Add @using MudBlazor",
+          "MainLayout.razor or App.razor - Add provider components"
+        ],
+        "dependencies": [
+          "No additional dependencies required"
+        ],
+        "layout_setup": [
+          "<MudThemeProvider/>",
+          "<MudPopoverProvider/>",
+          "<MudDialogProvider/>",
+          "<MudSnackbarProvider/>"
+        ]
+      },
+      "infrastructure": {
+        "requires_docker": false,
+        "notes": "Pure .NET library, no external infrastructure needed"
+      },
+      "gotchas": [
+        "Requires .NET 9.0 SDK 9.0.305 or later for building the library itself",
+        "Must add provider components (MudThemeProvider, MudPopoverProvider, etc.) to layout",
+        "Services must be registered before building the service provider",
+        "MudGlobal.UnhandledExceptionHandler can be configured for global exception handling"
+      ],
+      "features_relevant_to_project": [
+        "IBrowserViewportService - For responsive UI updates without polling",
+        "MudDataGrid - For displaying server/device lists with virtualization",
+        "MudSnackbar - For notification alerts",
+        "MudDialog - For configuration dialogs",
+        "Theme customization - For beautiful UI"
+      ],
+      "research_sources": [
+        "Context7 MCP: /mudblazor/mudblazor",
+        "Context7 MCP: /websites/mudblazor",
+        "https://mudblazor.com/getting-started/installation",
+        "https://github.com/mudblazor/mudblazor"
+      ]
+    },
+    {
+      "name": "Syncthing REST/Event API",
+      "type": "service",
+      "verified_package": {
+        "name": "No .NET SDK - Direct REST API integration",
+        "install_command": "N/A - Use HttpClient for REST API calls",
+        "version": "REST API v1 (current)",
+        "verified": true
+      },
+      "api_patterns": {
+        "imports": [
+          "using System.Net.Http;",
+          "using System.Net.Http.Json;"
+        ],
+        "initialization": "HttpClient with X-API-Key header or Authorization: Bearer token",
+        "key_functions": [
+          "GET /rest/events - Long polling event stream (PUSH-BASED)",
+          "GET /rest/events?since={lastEventId} - Get events since specific ID",
+          "GET /rest/noauth/health - Health check (no auth required)",
+          "GET /rest/system/status - System status and connection info",
+          "GET /rest/stats/device - Device statistics (lastSeen, connectionDuration)",
+          "GET /rest/cluster/pending/devices - Pending device connections"
+        ],
+        "verified_against": "Context7 MCP: /websites/syncthing_net, /syncthing/syncthing"
+      },
+      "event_types": {
+        "device_monitoring": [
+          "DeviceConnected - When device connects (includes addr, deviceName, clientVersion)",
+          "DeviceDisconnected - When device disconnects (includes error reason)",
+          "PendingDevicesChanged - When pending devices added/removed"
+        ],
+        "folder_monitoring": [
+          "FolderSummary - Folder sync status updates",
+          "FolderCompletion - Sync completion percentage",
+          "FolderErrors - Sync errors",
+          "ItemStarted/ItemFinished - File sync events"
+        ],
+        "system_events": [
+          "StartupComplete - Syncthing ready",
+          "StateChanged - System state changes",
+          "ConfigSaved - Configuration changes"
+        ],
+        "sync_progress": [
+          "DownloadProgress - File download progress (bytesTotal, bytesDone)",
+          "LocalChangeDetected/RemoteChangeDetected - File changes"
+        ]
+      },
+      "configuration": {
+        "env_vars": [],
+        "required_headers": [
+          "X-API-Key: {api_key}",
+          "OR Authorization: Bearer {api_key}"
+        ],
+        "default_port": 8384,
+        "endpoints": {
+          "base_url": "http://localhost:8384",
+          "events": "/rest/events",
+          "health": "/rest/noauth/health",
+          "system_status": "/rest/system/status",
+          "device_stats": "/rest/stats/device"
+        }
+      },
+      "infrastructure": {
+        "requires_docker": false,
+        "notes": "Syncthing instances are external - this app monitors them"
+      },
+      "gotchas": [
+        "Events API uses LONG POLLING - not WebSocket - client waits for events",
+        "Event IDs are sequential - use 'since' parameter to avoid duplicates",
+        "API key can be generated in Syncthing GUI or set in config file",
+        "/rest/noauth/* endpoints don't require authentication",
+        "Health check available at /rest/noauth/health without auth",
+        "Device lastSeen timestamp useful for 'offline for X time' monitoring",
+        "HTTPS with self-signed certs common - need to handle certificate validation"
+      ],
+      "push_based_implementation": {
+        "pattern": "Long Polling with HttpClient",
+        "description": "Call GET /rest/events with 'since' parameter, server holds connection until events available",
+        "timeout_handling": "Set appropriate HttpClient timeout, reconnect on timeout",
+        "reconnection": "On disconnect/timeout, reconnect with last known event ID"
+      },
+      "research_sources": [
+        "Context7 MCP: /websites/syncthing_net",
+        "Context7 MCP: /syncthing/syncthing",
+        "https://docs.syncthing.net/dev/events",
+        "https://docs.syncthing.net/dev/rest"
+      ]
+    },
+    {
+      "name": "Blazor Server",
+      "type": "framework",
+      "verified_package": {
+        "name": "Part of Microsoft.AspNetCore.Components (included in .NET SDK)",
+        "install_command": "dotnet new blazor -int Server",
+        "version": ".NET 9+ (current stable), .NET 10 (preview)",
+        "verified": true
+      },
+      "api_patterns": {
+        "imports": [
+          "using Microsoft.AspNetCore.Components;",
+          "using Microsoft.AspNetCore.SignalR.Client;"
+        ],
+        "initialization": "builder.Services.AddRazorComponents().AddInteractiveServerComponents();",
+        "key_functions": [
+          "AddRazorComponents() - Core Blazor services",
+          "AddInteractiveServerComponents() - Server-side interactivity",
+          "MapRazorComponents<App>().AddInteractiveServerRenderMode() - Endpoint mapping"
+        ],
+        "verified_against": "Context7 MCP: /websites/learn_microsoft-en-us-aspnet"
+      },
+      "configuration": {
+        "env_vars": [],
+        "config_files": [
+          "Program.cs - Service and endpoint configuration",
+          "App.razor - Root component",
+          "_Imports.razor - Global using statements"
+        ],
+        "dependencies": []
+      },
+      "signalr_configuration": {
+        "description": "Blazor Server uses SignalR for real-time UI updates",
+        "client_config": {
+          "server_timeout": "builder.withServerTimeout(60000)",
+          "keep_alive": "builder.withKeepAliveInterval(30000)"
+        },
+        "hub_connection_example": "new HubConnectionBuilder().WithUrl(url).WithServerTimeout(TimeSpan.FromSeconds(60)).Build()"
+      },
+      "infrastructure": {
+        "requires_docker": false,
+        "notes": "Can be deployed as standalone or in Docker container"
+      },
+      "gotchas": [
+        "SignalR circuit maintains state - must handle disconnections",
+        "Server timeout and keep-alive intervals are configurable",
+        "Blazor.start() can be customized for SignalR configuration",
+        "StateHasChanged() needed for UI updates from background threads"
+      ],
+      "relevance_to_project": {
+        "real_time_ui": "SignalR provides push-based UI updates without polling",
+        "state_management": "Can maintain connection state per-circuit",
+        "background_services": "IHostedService can run monitoring in background"
+      },
+      "research_sources": [
+        "Context7 MCP: /websites/learn_microsoft-en-us-aspnet",
+        "https://learn.microsoft.com/aspnet/core/blazor"
+      ]
+    },
+    {
+      "name": ".NET 10",
+      "type": "framework",
+      "verified_package": {
+        "name": ".NET 10 SDK",
+        "install_command": "Download from https://dotnet.microsoft.com/download/dotnet/10.0",
+        "version": "10.0 (RTM expected November 2025)",
+        "verified": false
+      },
+      "api_patterns": {
+        "imports": [],
+        "initialization": "Standard .NET project initialization",
+        "key_functions": [],
+        "verified_against": "Context7 MCP: /websites/learn_microsoft_en-us_dotnet"
+      },
+      "configuration": {
+        "env_vars": [],
+        "config_files": [
+          "*.csproj - Set TargetFramework to net10.0"
+        ],
+        "dependencies": []
+      },
+      "infrastructure": {
+        "requires_docker": false,
+        "notes": ".NET 10 is currently in preview"
+      },
+      "gotchas": [
+        ".NET 10 RTM is NOT YET RELEASED - expected November 2025",
+        "Currently only preview versions available",
+        "For production now, use .NET 9 (current stable LTS alternative: .NET 8)",
+        "MudBlazor currently requires .NET 9.0.305+ SDK",
+        "Should use .NET 9 for initial development, upgrade to .NET 10 when RTM"
+      ],
+      "recommendation": "Start with .NET 9 (current stable), upgrade to .NET 10 when RTM releases in November 2025",
+      "research_sources": [
+        "Context7 MCP: /websites/learn_microsoft_en-us_dotnet",
+        "https://dotnet.microsoft.com/download/dotnet"
+      ]
+    },
+    {
+      "name": "SignalR (for real-time UI)",
+      "type": "library",
+      "verified_package": {
+        "name": "Microsoft.AspNetCore.SignalR (included in ASP.NET Core)",
+        "install_command": "Included with Blazor Server - no separate install needed",
+        "version": "Matches .NET version",
+        "verified": true
+      },
+      "api_patterns": {
+        "imports": [
+          "using Microsoft.AspNetCore.SignalR;",
+          "using Microsoft.AspNetCore.SignalR.Client;"
+        ],
+        "initialization": "Automatic with Blazor Server",
+        "key_functions": [
+          "HubConnectionBuilder - Create SignalR connections",
+          "WithServerTimeout() - Configure timeout",
+          "WithKeepAliveInterval() - Configure keep-alive",
+          "Hub.Clients.All.SendAsync() - Broadcast to all clients"
+        ],
+        "verified_against": "Context7 MCP: /websites/learn_microsoft-en-us-aspnet"
+      },
+      "configuration": {
+        "env_vars": [],
+        "config_files": [],
+        "dependencies": []
+      },
+      "infrastructure": {
+        "requires_docker": false,
+        "notes": "Built into ASP.NET Core"
+      },
+      "gotchas": [
+        "Blazor Server already uses SignalR for circuit management",
+        "Can add custom hubs for additional real-time features if needed",
+        "Consider connection limits for many concurrent clients"
+      ],
+      "relevance_to_project": "Core technology for real-time UI updates without polling",
+      "research_sources": [
+        "Context7 MCP: /websites/learn_microsoft-en-us-aspnet"
+      ]
+    }
+  ],
+  "unverified_claims": [
+    {
+      "claim": ".NET 10 RTM availability",
+      "reason": ".NET 10 is currently in preview. RTM expected November 2025 based on typical .NET release schedule",
+      "risk_level": "medium",
+      "mitigation": "Use .NET 9 for initial development, plan upgrade path to .NET 10"
+    },
+    {
+      "claim": "Syncthing 'push-based protocol' as described",
+      "reason": "Syncthing uses HTTP Long Polling for events, not WebSocket or true push. This is event-driven but still requires client to initiate connection",
+      "risk_level": "low",
+      "mitigation": "Long polling is effectively push-based from client perspective - server holds connection until events available"
+    }
+  ],
+  "recommendations": [
+    {
+      "category": "Framework Version",
+      "recommendation": "Start development with .NET 9 (current stable) instead of .NET 10 RTM",
+      "reason": ".NET 10 is not yet released. The csproj can be easily updated when .NET 10 RTM releases in November 2025",
+      "priority": "high"
+    },
+    {
+      "category": "Syncthing Integration",
+      "recommendation": "Implement Syncthing monitoring using the Events API with long polling",
+      "reason": "The /rest/events endpoint supports 'since' parameter for efficient event streaming without missing events",
+      "priority": "high"
+    },
+    {
+      "category": "Real-time UI Architecture",
+      "recommendation": "Use Blazor Server mode for SignalR-based real-time updates",
+      "reason": "Blazor Server inherently uses SignalR, providing push-based UI updates. Monitoring events can be broadcast to UI via StateHasChanged()",
+      "priority": "high"
+    },
+    {
+      "category": "Monitoring Service Design",
+      "recommendation": "Implement IHostedService for background Syncthing monitoring",
+      "reason": "Background service can maintain long-polling connections to multiple Syncthing instances and broadcast events to UI",
+      "priority": "medium"
+    },
+    {
+      "category": "Device Offline Detection",
+      "recommendation": "Use DeviceConnected/DeviceDisconnected events combined with /rest/stats/device lastSeen timestamp",
+      "reason": "Events provide real-time connect/disconnect, stats API provides historical data for 'offline for X time' calculation",
+      "priority": "medium"
+    },
+    {
+      "category": "Authentication Storage",
+      "recommendation": "Store Syncthing API keys securely - consider Data Protection API or similar",
+      "reason": "API keys provide full access to Syncthing instances and should be encrypted at rest",
+      "priority": "medium"
+    },
+    {
+      "category": "Connection Resilience",
+      "recommendation": "Implement exponential backoff for reconnection to Syncthing instances",
+      "reason": "Long-polling connections may timeout or fail; need graceful reconnection strategy",
+      "priority": "medium"
+    }
+  ],
+  "architecture_insights": {
+    "event_flow": [
+      "1. Background service establishes long-polling connection to each Syncthing instance",
+      "2. Syncthing holds connection until events available (or timeout)",
+      "3. Events received and parsed (DeviceConnected, DeviceDisconnected, etc.)",
+      "4. Service evaluates events against monitoring rules (e.g., offline > X time)",
+      "5. If rule triggered, notification sent to configured recipients",
+      "6. UI updated via Blazor's StateHasChanged() or SignalR hub"
+    ],
+    "key_event_types_for_monitoring": {
+      "DeviceConnected": "Track when remote nodes come online",
+      "DeviceDisconnected": "Track when remote nodes go offline with error reason",
+      "FolderCompletion": "Monitor sync completion status",
+      "FolderErrors": "Detect sync issues",
+      "StateChanged": "Monitor overall Syncthing state"
+    },
+    "anti_polling_strategy": "Long polling IS the push mechanism - no additional polling needed. Connection stays open until server has events."
+  },
+  "context7_libraries_used": [
+    "/mudblazor/mudblazor",
+    "/websites/mudblazor",
+    "/websites/syncthing_net",
+    "/syncthing/syncthing",
+    "/websites/learn_microsoft-en-us-aspnet",
+    "/websites/learn_microsoft_en-us_dotnet"
+  ],
+  "created_at": "2025-12-25T12:00:00Z"
+}
