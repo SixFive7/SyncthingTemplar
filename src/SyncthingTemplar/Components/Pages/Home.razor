@@ -1,0 +1,115 @@
+@* Home.razor - Dashboard page for SyncthingTemplar *@
+@* Provides a welcoming overview of the application and quick access to key features *@
+
+@page "/"
+
+<PageTitle>Home - SyncthingTemplar</PageTitle>
+
+@* Welcome section *@
+<MudText Typo="Typo.h3" GutterBottom="true">Welcome to SyncthingTemplar</MudText>
+<MudText Typo="Typo.body1" Class="mb-8">
+    Monitor and manage your Syncthing instances from a single dashboard.
+</MudText>
+
+@* Quick overview cards *@
+<MudGrid>
+    @* Servers card *@
+    <MudItem xs="12" sm="6" md="4">
+        <MudCard Elevation="2">
+            <MudCardHeader>
+                <CardHeaderAvatar>
+                    <MudAvatar Color="Color.Primary" Variant="Variant.Outlined">
+                        <MudIcon Icon="@Icons.Material.Filled.Dns" />
+                    </MudAvatar>
+                </CardHeaderAvatar>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">Servers</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText Typo="Typo.body2">
+                    Configure and manage your Syncthing server connections.
+                </MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Primary" Href="/servers">
+                    Manage Servers
+                </MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+
+    @* Monitoring card *@
+    <MudItem xs="12" sm="6" md="4">
+        <MudCard Elevation="2">
+            <MudCardHeader>
+                <CardHeaderAvatar>
+                    <MudAvatar Color="Color.Secondary" Variant="Variant.Outlined">
+                        <MudIcon Icon="@Icons.Material.Filled.Monitor" />
+                    </MudAvatar>
+                </CardHeaderAvatar>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">Monitoring</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText Typo="Typo.body2">
+                    View real-time status and health of your Syncthing nodes.
+                </MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Secondary" Href="/monitoring">
+                    View Status
+                </MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+
+    @* Settings card *@
+    <MudItem xs="12" sm="6" md="4">
+        <MudCard Elevation="2">
+            <MudCardHeader>
+                <CardHeaderAvatar>
+                    <MudAvatar Color="Color.Tertiary" Variant="Variant.Outlined">
+                        <MudIcon Icon="@Icons.Material.Filled.Settings" />
+                    </MudAvatar>
+                </CardHeaderAvatar>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">Settings</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText Typo="Typo.body2">
+                    Configure notifications, alerts, and application preferences.
+                </MudText>
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Tertiary" Href="/settings">
+                    Configure
+                </MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+</MudGrid>
+
+@* Getting started section *@
+<MudPaper Class="pa-6 mt-8" Elevation="0" Outlined="true">
+    <MudText Typo="Typo.h5" GutterBottom="true">Getting Started</MudText>
+    <MudText Typo="Typo.body1" Class="mb-4">
+        Follow these steps to start monitoring your Syncthing instances:
+    </MudText>
+    <MudList T="string" Dense="true">
+        <MudListItem Icon="@Icons.Material.Filled.Add">
+            <MudText>Add your Syncthing servers with their API credentials</MudText>
+        </MudListItem>
+        <MudListItem Icon="@Icons.Material.Filled.Rule">
+            <MudText>Configure monitoring rules for each server</MudText>
+        </MudListItem>
+        <MudListItem Icon="@Icons.Material.Filled.Notifications">
+            <MudText>Set up notification preferences for alerts</MudText>
+        </MudListItem>
+        <MudListItem Icon="@Icons.Material.Filled.Dashboard">
+            <MudText>Monitor your servers in real-time from the dashboard</MudText>
+        </MudListItem>
+    </MudList>
+</MudPaper>

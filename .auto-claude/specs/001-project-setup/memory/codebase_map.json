@@ -24,7 +24,22 @@
       "description": "Blazor Router configuration. Uses typeof(Program).Assembly for route discovery, Layout.MainLayout as default layout, RouteView for found routes, FocusOnNavigate for accessibility, and LayoutView with error message for NotFound.",
       "category": "component",
       "discovered_at": "2025-12-25T19:07:52.336980+00:00"
+    },
+    "src/SyncthingTemplar/Components/_Imports.razor": {
+      "description": "Global using statements for Razor components. Includes standard Blazor namespaces (System.Net.Http, Forms, Routing, Web, JSInterop), MudBlazor for UI components, and application namespaces (SyncthingTemplar, SyncthingTemplar.Components). All .razor files in Components folder inherit these imports.",
+      "category": "Blazor Configuration",
+      "discovered_at": "2025-12-25T19:09:36.573091+00:00"
+    },
+    "src/SyncthingTemplar/Components/Layout/MainLayout.razor": {
+      "description": "Main application layout with MudBlazor. Contains all four required providers (MudThemeProvider, MudPopoverProvider, MudDialogProvider, MudSnackbarProvider). Supports dark/light theme toggle with system preference detection on first render. Uses MudLayout with MudAppBar, MudDrawer (with NavMenu), MudMainContent structure. Default dark mode is true, drawer is open by default.",
+      "category": "Layout",
+      "discovered_at": "2025-12-25T19:11:48.785866+00:00"
+    },
+    "src/SyncthingTemplar/Components/Layout/NavMenu.razor": {
+      "description": "NavMenu component for main navigation. Uses MudNavMenu with MudNavLink elements. Home link uses NavLinkMatch.All for exact matching, other pages use NavLinkMatch.Prefix for prefix matching. Each link has a Material icon (Home, Dns for servers, Monitor for monitoring, Settings).",
+      "category": "component",
+      "discovered_at": "2025-12-25T19:13:29.689125+00:00"
     }
   },
-  "last_updated": "2025-12-25T19:07:52.336980+00:00"
+  "last_updated": "2025-12-25T19:13:29.689125+00:00"
 }
