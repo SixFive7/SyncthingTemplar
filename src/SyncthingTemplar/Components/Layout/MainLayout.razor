@@ -26,10 +26,14 @@
         <NavMenu />
     </MudDrawer>
 
-    @* Main content area *@
+    @* Main content area with cascaded theme state for child components *@
     <MudMainContent>
         <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="py-8">
-            @Body
+            <CascadingValue Name="IsDarkMode" Value="_isDarkMode">
+                <CascadingValue Name="ToggleTheme" Value="_toggleThemeCallback">
+                    @Body
+                </CascadingValue>
+            </CascadingValue>
         </MudContainer>
     </MudMainContent>
 </MudLayout>
@@ -38,6 +42,13 @@
     private MudThemeProvider _themeProvider = null!;
     private bool _isDarkMode = true;
     private bool _drawerOpen = true;
+    private EventCallback _toggleThemeCallback;
+
+    protected override void OnInitialized()
+    {
+        // Create the callback for theme toggling that child components can invoke
+        _toggleThemeCallback = EventCallback.Factory.Create(this, ToggleTheme);
+    }
 
     /// <summary>
     /// Toggles the navigation drawer open/closed state.
