@@ -1,0 +1,34 @@
+{
+  "project_type": "single",
+  "services": {
+    "syncthing-templar": {
+      "path": "./src/SyncthingTemplar",
+      "tech_stack": [".NET 10.0", "C#", "Blazor Server", "MudBlazor", "System.Net.Http", "System.Text.Json"],
+      "port": 5000,
+      "dev_command": "dotnet run --project src/SyncthingTemplar/SyncthingTemplar.csproj",
+      "test_command": "dotnet test",
+      "entry_point": "src/SyncthingTemplar/Program.cs",
+      "framework": "Microsoft.NET.Sdk.Web"
+    }
+  },
+  "infrastructure": {
+    "docker": false,
+    "database": null,
+    "ci_cd": false
+  },
+  "conventions": {
+    "linter": null,
+    "formatter": null,
+    "testing": "xunit",
+    "nullable_reference_types": true,
+    "implicit_usings": true
+  },
+  "project_structure": {
+    "solution_file": "SyncthingTemplar.sln",
+    "main_project": "src/SyncthingTemplar/SyncthingTemplar.csproj",
+    "test_project": "tests/SyncthingTemplar.Tests/SyncthingTemplar.Tests.csproj",
+    "components_path": "src/SyncthingTemplar/Components",
+    "services_path": "src/SyncthingTemplar/Services",
+    "models_path": "src/SyncthingTemplar/Models"
+  }
+}
