@@ -9,7 +9,22 @@
       "description": "Blazor Server entry point with MudBlazor. Uses AddRazorComponents().AddInteractiveServerComponents() for interactive SSR, AddMudServices() for MudBlazor, and MapRazorComponents<App>().AddInteractiveServerRenderMode() for routing.",
       "category": "configuration",
       "discovered_at": "2025-12-25T19:04:19.959073+00:00"
+    },
+    "src/SyncthingTemplar/appsettings.json": {
+      "description": "Standard ASP.NET Core configuration with Logging (Info default, Warning for ASP.NET Core) and AllowedHosts. Will need appsettings.Development.json for development-specific settings in future tasks.",
+      "category": "configuration",
+      "discovered_at": "2025-12-25T19:05:49.221031+00:00"
+    },
+    "src/SyncthingTemplar/Components/App.razor": {
+      "description": "Root Blazor component defining HTML document structure. Includes MudBlazor CSS (fonts.googleapis.com, MudBlazor.min.css), HeadOutlet for dynamic head content, Routes component in body, and JavaScript files (blazor.web.js, MudBlazor.min.js).",
+      "category": "component",
+      "discovered_at": "2025-12-25T19:07:52.265824+00:00"
+    },
+    "src/SyncthingTemplar/Components/Routes.razor": {
+      "description": "Blazor Router configuration. Uses typeof(Program).Assembly for route discovery, Layout.MainLayout as default layout, RouteView for found routes, FocusOnNavigate for accessibility, and LayoutView with error message for NotFound.",
+      "category": "component",
+      "discovered_at": "2025-12-25T19:07:52.336980+00:00"
     }
   },
-  "last_updated": "2025-12-25T19:04:19.959073+00:00"
+  "last_updated": "2025-12-25T19:07:52.336980+00:00"
 }
