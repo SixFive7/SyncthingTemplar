@@ -1,0 +1,20 @@
+@* Navigation menu component for SyncthingTemplar *@
+@* Provides navigation links to all application pages *@
+
+<MudNavMenu>
+    <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">
+        Home
+    </MudNavLink>
+
+    <MudNavLink Href="/servers" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Dns">
+        Servers
+    </MudNavLink>
+
+    <MudNavLink Href="/monitoring" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Monitor">
+        Monitoring
+    </MudNavLink>
+
+    <MudNavLink Href="/settings" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Settings">
+        Settings
+    </MudNavLink>
+</MudNavMenu>
