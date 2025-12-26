@@ -1,2 +1,0 @@
-# SyncthingTemplar
-Syncthing monitoring software
