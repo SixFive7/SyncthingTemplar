@@ -1,3 +1,12 @@
+# README Synchronization
+
+Keep README.md accurate and in sync with project changes:
+
+1. **Update on change** - When making changes that affect documented features, update README.md accordingly
+2. **Reflect current state** - Ensure README.md accurately describes the project's current capabilities and usage
+3. **Maintain consistency** - Keep examples, installation steps, and feature lists aligned with the actual codebase
+
+
 # Simplicity First
 
 Prefer solutions with the simplest mental model to ensure beginner-friendly code:
