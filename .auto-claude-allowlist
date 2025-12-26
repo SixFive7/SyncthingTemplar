@@ -1,0 +1,4 @@
+# .NET CLI tools
+dotnet
+msbuild
+nuget
